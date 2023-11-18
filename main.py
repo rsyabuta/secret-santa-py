@@ -7,7 +7,7 @@ class Entry:
     name = ""
     email = ""
     address = ""
-    pick = ""
+    pick = None
 
     def __init__(self, name, email, address):
         self.name = name
@@ -38,13 +38,21 @@ def generate_pool(entries):
         pool.append(entry.name)
     return pool
 
-def generate_email(entry):
-    return """
+def send_email(entry):
+    body = """
     Hello {},
     
     You have been selected to be {}'s secret santa! Please send your gift to {}.
     
     Happy Holidays!""".format(entry.name, entry.pick.name, entry.pick.address)
+
+    msg = MIMEText(body)
+    msg['Subject'] = "Secret Santa"
+    msg['From'] = sender
+    msg['To'] = entry.email
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.login(sender, password)
+        smtp.send_message(msg)
 
 def main():
     entries = generate_entries("2023.csv")
