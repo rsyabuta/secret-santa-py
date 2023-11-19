@@ -32,12 +32,6 @@ def generate_entries(file):
             entries.append(Entry(row["Name"], row["Email"], row["Address"]))
     return entries
 
-def generate_pool(entries):
-    pool = []
-    for entry in entries:
-        pool.append(entry.name)
-    return pool
-
 def send_email(entry):
     body = """
     Hello {},
