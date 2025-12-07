@@ -6,4 +6,4 @@ lib/
 *.pyc
 *.pyo
 *.pyd
-
+*.env
